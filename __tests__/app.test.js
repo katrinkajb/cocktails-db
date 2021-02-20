@@ -31,6 +31,25 @@ describe('app routes', () => {
       return client.end(done);
     });
 
+    test('returns a single cocktail with the matching id', async() => {
+      const expectation = {
+        'id': 1,
+        'name': 'Old Fashioned',
+        'description': 'A strong bourbon drink',
+        'category': 'strong',
+        'price': 8,
+        'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry',
+        'owner_id': 1
+      };
+  
+      const data = await fakeRequest(app)
+        .get('/cocktails/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+  
+      expect(data.body).toEqual(expectation);
+    });
+
     test('returns cocktails', async() => {
 
       const expectation = [
@@ -112,28 +131,10 @@ describe('app routes', () => {
         .get('/cocktails')
         .expect('Content-Type', /json/)
         .expect(200);
+        
 
       expect(data.body).toEqual(expectation);
     });
   });
 
-  test('returns a single cocktail with the matching id', async() => {
-
-    const expectation = {
-      'id': 1,
-      'name': 'Old Fashioned',
-      'description': 'A strong bourbon drink',
-      'category': 'strong',
-      'price': 8,
-      'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry',
-      'owner_id': 1
-    };
-
-    const data = await fakeRequest(app)
-      .get('/cocktails/1')
-      .expect('Content-Type', /json/)
-      .expect(200);
-
-    expect(data.body).toEqual(expectation);
-  });
 });
