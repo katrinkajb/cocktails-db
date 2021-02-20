@@ -1,5 +1,4 @@
 const client = require('../lib/client');
-const { getEmoji } = require('../lib/emoji.js');
 
 // async/await needs to run in a function
 run();
@@ -28,11 +27,9 @@ async function run() {
             );
         `);
 
-    console.log('create tables complete', getEmoji(), getEmoji(), getEmoji());
   }
   catch(err) {
     // problem? let's see the error...
-    console.log(err);
   }
   finally {
     // success or failure, need to close the db connection

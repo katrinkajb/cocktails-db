@@ -34,13 +34,14 @@ describe('app routes', () => {
     test('returns cocktails', async() => {
 
       const expectation = [
-        {  
+        {
           'id': 1,
           'name': 'Old Fashioned',
           'description': 'A strong bourbon drink',
           'category': 'strong',
           'price': 8,
-          'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry'
+          'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry',
+          'owner_id': 1
         },
         {
           'id': 2,
@@ -48,7 +49,8 @@ describe('app routes', () => {
           'description': 'A creamy vodka drink',
           'category': 'creamy',
           'price': 9,
-          'ingredients': 'Vodka, coffee liqueur, half and half'
+          'ingredients': 'Vodka, coffee liqueur, half and half',
+          'owner_id': 1
         },
         {
           'id': 3,
@@ -56,7 +58,8 @@ describe('app routes', () => {
           'description': 'A gin and champagne drink',
           'category': 'bubbles',
           'price': 11,
-          'ingredients': 'Gin, lemon juice, simple syrup, champagne. Garnish: lemon twist'
+          'ingredients': 'Gin, lemon juice, simple syrup, champagne. Garnish: lemon twist',
+          'owner_id': 1
         },
         {
           'id': 4,
@@ -64,7 +67,8 @@ describe('app routes', () => {
           'description': 'A refreshing rum drink',
           'category': 'refreshing',
           'price': 10,
-          'ingredients': 'White rum, mint, lime, simple syrup, club soda. Garnish: lime wedge, mint'
+          'ingredients': 'White rum, mint, lime, simple syrup, club soda. Garnish: lime wedge, mint',
+          'owner_id': 1
         },
         {
           'id': 5,
@@ -72,7 +76,8 @@ describe('app routes', () => {
           'description': 'A strong tequila drink',
           'category': 'strong',
           'price': 9,
-          'ingredients': 'Tequila, orange liqueur, lime juice. Garnish: lime slice'
+          'ingredients': 'Tequila, orange liqueur, lime juice. Garnish: lime slice',
+          'owner_id': 1
         },
         {
           'id': 6,
@@ -80,7 +85,8 @@ describe('app routes', () => {
           'description': 'A refreshing gin and lime drink',
           'category': 'refreshing',
           'price': 8,
-          'ingredients': 'Gin, lime juice, simple syrup. Garnish: lime wheel'
+          'ingredients': 'Gin, lime juice, simple syrup. Garnish: lime wheel',
+          'owner_id': 1
         },
         {
           'id': 7,
@@ -88,7 +94,8 @@ describe('app routes', () => {
           'description': 'A strong gin drink',
           'category': 'strong',
           'price': 11,
-          'ingredients': 'Gin, dry vermouth. Garnish: olives or lemon twist'
+          'ingredients': 'Gin, dry vermouth. Garnish: olives or lemon twist',
+          'owner_id': 1
         },
         {
           'id': 8,
@@ -96,7 +103,8 @@ describe('app routes', () => {
           'description': 'A refreshing vodka drink',
           'category': 'refreshing',
           'price': 7,
-          'ingredients': 'Vodka, grapefruit juice. Garnish: grapefruit wedge'
+          'ingredients': 'Vodka, grapefruit juice. Garnish: grapefruit wedge',
+          'owner_id': 1
         }
       ];
 
@@ -109,22 +117,23 @@ describe('app routes', () => {
     });
   });
 
-  // test('returns a single cocktail with the matching id', async() => {
+  test('returns a single cocktail with the matching id', async() => {
 
-  //   const expectation = {
-  //     'id': 1,
-  //     'name': 'Old Fashioned',
-  //     'description': 'A strong bourbon drink',
-  //     'category': 'strong',
-  //     'price': 8,
-  //     'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry'
-  //   };
+    const expectation = {
+      'id': 1,
+      'name': 'Old Fashioned',
+      'description': 'A strong bourbon drink',
+      'category': 'strong',
+      'price': 8,
+      'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry',
+      'owner_id': 1
+    };
 
-  //   const data = await fakeRequest(app)
-  //     .get('/cocktails/1')
-  //     .expect('Content-Type', /json/)
-  //     .expect(200);
+    const data = await fakeRequest(app)
+      .get('/cocktails/1')
+      .expect('Content-Type', /json/)
+      .expect(200);
 
-  //   expect(data.body).toEqual(expectation);
-  // });
+    expect(data.body).toEqual(expectation);
+  });
 });

@@ -2,7 +2,6 @@ const client = require('../lib/client');
 // import our seed data:
 const cocktails = require('./cocktails.js');
 const usersData = require('./users.js');
-const { getEmoji } = require('../lib/emoji.js');
 
 run();
 
@@ -41,7 +40,6 @@ async function run() {
     );
     
 
-    console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
   catch(err) {
     console.log(err);
