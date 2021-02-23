@@ -31,6 +31,7 @@ describe('app routes', () => {
       return client.end(done);
     });
 
+    // POST test
     test('creates a new cocktail in the list', async() => {
       const newCocktail = {
         name: 'Manhattan',
@@ -55,15 +56,16 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
 
       const allCocktails = await fakeRequest(app)
-        .get('cocktails')
+        .get('/cocktails')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      const manhattan = allCocktails.body.find(cocktail => cocktail.name === 'manhattan');
+      const manhattan = allCocktails.body.find(cocktail => cocktail.name === 'Manhattan'); 
 
       expect(manhattan).toEqual(expectation);
     });
 
+    // GET single cocktail test
     test('returns a single cocktail with the matching id', async() => {
       const expectation = {
         'id': 1,
@@ -83,8 +85,8 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
+    // GET all cocktails test
     test('returns cocktails', async() => {
-
       const expectation = [
         {
           'id': 1,
