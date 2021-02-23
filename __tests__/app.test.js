@@ -31,6 +31,39 @@ describe('app routes', () => {
       return client.end(done);
     });
 
+    test('creates a new cocktail in the list', async() => {
+      const newCocktail = {
+        name: 'Manhattan',
+        description: 'A strong whiskey drink',
+        category: 'strong',
+        price: 9,
+        ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
+      };
+      
+      const expectation = {
+        ...newCocktail,
+        id: 9,
+        owner_id: 1,
+      };
+  
+      const data = await fakeRequest(app)
+        .post('/cocktails')
+        .send(newCocktail)
+        .expect('Content-Type', /json/)
+        .expect(200);
+  
+      expect(data.body).toEqual(expectation);
+
+      const allCocktails = await fakeRequest(app)
+        .get('cocktails')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const manhattan = allCocktails.body.find(cocktail => cocktail.name === 'manhattan');
+
+      expect(manhattan).toEqual(expectation);
+    });
+
     test('returns a single cocktail with the matching id', async() => {
       const expectation = {
         'id': 1,
@@ -124,6 +157,15 @@ describe('app routes', () => {
           'price': 7,
           'ingredients': 'Vodka, grapefruit juice. Garnish: grapefruit wedge',
           'owner_id': 1
+        },
+        {
+          'id': 9,
+          'name': 'Manhattan',
+          'description': 'A strong whiskey drink',
+          'category': 'strong',
+          'price': 9,
+          'ingredients': 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
+          'owner_id': 1 
         }
       ];
 
@@ -132,7 +174,6 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
         
-
       expect(data.body).toEqual(expectation);
     });
   });
