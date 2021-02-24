@@ -27,9 +27,9 @@ describe('app routes', () => {
       return done();
     });
   
-    // afterAll(done => {
-    //   return client.end(done);
-    // });
+    afterAll(done => {
+      return client.end(done);
+    });
 
     // POST test
     test('creates a new cocktail in the list', async() => {
@@ -65,6 +65,36 @@ describe('app routes', () => {
       expect(manhattan).toEqual(expectation);
     });
 
+    // PUT update to single cocktail test
+    test('updates a cocktail with the matching id', async() => {
+      const newCocktail = {
+        name: 'Old Fashioned',
+        description: 'A strong bourbon drink',
+        category: 'strong',
+        price: 8,
+        ingredients: 'Bourbon, simple syrup, bitters. Garnish: orange peel',
+      };
+
+      const expectation = {
+        ...newCocktail,
+        id: 1,
+        owner_id: 1,
+      };
+
+      await fakeRequest(app)
+        .put('/cocktails/1')
+        .send(newCocktail)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const updatedCocktail = await fakeRequest(app)
+        .get('/cocktails/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(updatedCocktail.body).toEqual(expectation);
+    });
+
     // GET single cocktail test
     test('returns a single cocktail with the matching id', async() => {
       const expectation = {
@@ -73,30 +103,48 @@ describe('app routes', () => {
         'description': 'A strong bourbon drink',
         'category': 'strong',
         'price': 8,
-        'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry',
+        'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel',
         'owner_id': 1
       };
-  
+
       const data = await fakeRequest(app)
         .get('/cocktails/1')
         .expect('Content-Type', /json/)
         .expect(200);
-  
+
       expect(data.body).toEqual(expectation);
+    });
+
+    // DELETE single cocktail test
+    test('deletes a cocktail with the matching id', async() => {  
+      const expectation = {
+        id: 9,
+        name: 'Manhattan',
+        description: 'A strong whiskey drink',
+        category: 'strong',
+        price: 9,
+        ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
+        owner_id: 1,
+      };
+
+      const data = await fakeRequest(app)
+        .delete('/cocktails/9')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
+      const deleted = await fakeRequest(app)
+        .get('/cocktails/9')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(deleted.body).toEqual('');
     });
 
     // GET all cocktails test
     test('returns cocktails', async() => {
       const expectation = [
-        {
-          'id': 1,
-          'name': 'Old Fashioned',
-          'description': 'A strong bourbon drink',
-          'category': 'strong',
-          'price': 8,
-          'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel, maraschino cherry',
-          'owner_id': 1
-        },
         {
           'id': 2,
           'name': 'White Russian',
@@ -161,13 +209,13 @@ describe('app routes', () => {
           'owner_id': 1
         },
         {
-          'id': 9,
-          'name': 'Manhattan',
-          'description': 'A strong whiskey drink',
+          'id': 1,
+          'name': 'Old Fashioned',
+          'description': 'A strong bourbon drink',
           'category': 'strong',
-          'price': 9,
-          'ingredients': 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
-          'owner_id': 1 
+          'price': 8,
+          'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel',
+          'owner_id': 1
         }
       ];
 
@@ -181,59 +229,3 @@ describe('app routes', () => {
   });
 });
 
-// PUT update to single cocktail test
-test('updates a cocktail with the matching id', async() => {
-  const newCocktail = {
-    name: 'Old Fashioned',
-    description: 'A strong bourbon drink',
-    category: 'strong',
-    price: 8,
-    ingredients: 'Bourbon, simple syrup, bitters. Garnish: orange peel',
-  };
-  
-  const expectation = {
-    ...newCocktail,
-    id: 1,
-    owner_id: 1,
-  };
-
-  await fakeRequest(app)
-    .put('/cocktails/1')
-    .send(newCocktail)
-    .expect('Content-Type', /json/)
-    .expect(200);
-
-  const updatedCocktail = await fakeRequest(app)
-    .get('/cocktails/1')
-    .expect('Content-Type', /json/)
-    .expect(200);
-
-  expect(updatedCocktail.body).toEqual(expectation);
-});
-
-// DELETE single cocktail test
-test('deletes a cocktail with the matching id', async() => {  
-  const expectation = {
-    id: 9,
-    name: 'Manhattan',
-    description: 'A strong whiskey drink',
-    category: 'strong',
-    price: 9,
-    ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
-    owner_id: 1,
-  };
-
-  const data = await fakeRequest(app)
-    .delete('/cocktails/9')
-    .expect('Content-Type', /json/)
-    .expect(200);
-
-  expect(data.body).toEqual(expectation);
-
-  const deleted = await fakeRequest(app)
-    .get('/cocktails/9')
-    .expect('Content-Type', /json/)
-    .expect(200);
-
-  expect(deleted.body).toEqual('');
-});
