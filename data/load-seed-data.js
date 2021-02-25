@@ -39,12 +39,12 @@ async function run() {
     await Promise.all(
       cocktails.map(cocktail => {
         return client.query(`
-          INSERT INTO cocktails (name, description, category, price, ingredients, owner_id)
+          INSERT INTO cocktails (name, description, category_id, price, ingredients, owner_id)
           VALUES ($1, $2, $3, $4, $5, $6);
         `,
         [cocktail.name, 
           cocktail.description, 
-          cocktail.category, 
+          cocktail.category_id, 
           cocktail.price, 
           cocktail.ingredients, 
           user.id,

@@ -1,14 +1,14 @@
 module.exports = [
   {
-    'category': 'strong',
+    'name': 'strong',
   },
   {
-    'category': 'creamy',
+    'name': 'creamy',
   },
   {
-    'category': 'bubbles',
+    'name': 'bubbles',
   },
   {
-    'category': 'refreshing',
+    'name': 'refreshing',
   },
 ];
