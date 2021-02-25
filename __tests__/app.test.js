@@ -36,7 +36,7 @@ describe('app routes', () => {
       const newCocktail = {
         name: 'Manhattan',
         description: 'A strong whiskey drink',
-        category: 'strong',
+        category_id: 1,
         price: 9,
         ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
       };
@@ -70,7 +70,7 @@ describe('app routes', () => {
       const newCocktail = {
         name: 'Old Fashioned',
         description: 'A strong bourbon drink',
-        category: 'strong',
+        category_id: 1,
         price: 8,
         ingredients: 'Bourbon, simple syrup, bitters. Garnish: orange peel',
       };
@@ -101,7 +101,7 @@ describe('app routes', () => {
         'id': 1,
         'name': 'Old Fashioned',
         'description': 'A strong bourbon drink',
-        'category': 'strong',
+        'category_id': 1,
         'price': 8,
         'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel',
         'owner_id': 1
@@ -115,13 +115,13 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
-    // DELETE single cocktail test
+    // DELETE single cocktail skip
     test('deletes a cocktail with the matching id', async() => {  
       const expectation = {
         id: 9,
         name: 'Manhattan',
         description: 'A strong whiskey drink',
-        category: 'strong',
+        category_id: 1,
         price: 9,
         ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
         owner_id: 1,
@@ -149,7 +149,7 @@ describe('app routes', () => {
           'id': 2,
           'name': 'White Russian',
           'description': 'A creamy vodka drink',
-          'category': 'creamy',
+          'category_id': 2,
           'price': 9,
           'ingredients': 'Vodka, coffee liqueur, half and half',
           'owner_id': 1
@@ -158,7 +158,7 @@ describe('app routes', () => {
           'id': 3,
           'name': 'French 75',
           'description': 'A gin and champagne drink',
-          'category': 'bubbles',
+          'category_id': 3,
           'price': 11,
           'ingredients': 'Gin, lemon juice, simple syrup, champagne. Garnish: lemon twist',
           'owner_id': 1
@@ -167,7 +167,7 @@ describe('app routes', () => {
           'id': 4,
           'name': 'Mojito',
           'description': 'A refreshing rum drink',
-          'category': 'refreshing',
+          'category_id': 4,
           'price': 10,
           'ingredients': 'White rum, mint, lime, simple syrup, club soda. Garnish: lime wedge, mint',
           'owner_id': 1
@@ -176,7 +176,7 @@ describe('app routes', () => {
           'id': 5,
           'name': 'Cadillac Margarita',
           'description': 'A strong tequila drink',
-          'category': 'strong',
+          'category_id': 1,
           'price': 9,
           'ingredients': 'Tequila, orange liqueur, lime juice. Garnish: lime slice',
           'owner_id': 1
@@ -185,7 +185,7 @@ describe('app routes', () => {
           'id': 6,
           'name': 'Gimlet',
           'description': 'A refreshing gin and lime drink',
-          'category': 'refreshing',
+          'category_id': 4,
           'price': 8,
           'ingredients': 'Gin, lime juice, simple syrup. Garnish: lime wheel',
           'owner_id': 1
@@ -194,7 +194,7 @@ describe('app routes', () => {
           'id': 7,
           'name': 'Martini',
           'description': 'A strong gin drink',
-          'category': 'strong',
+          'category_id': 1,
           'price': 11,
           'ingredients': 'Gin, dry vermouth. Garnish: olives or lemon twist',
           'owner_id': 1
@@ -203,7 +203,7 @@ describe('app routes', () => {
           'id': 8,
           'name': 'Greyhound',
           'description': 'A refreshing vodka drink',
-          'category': 'refreshing',
+          'category_id': 4,
           'price': 7,
           'ingredients': 'Vodka, grapefruit juice. Garnish: grapefruit wedge',
           'owner_id': 1
@@ -212,7 +212,7 @@ describe('app routes', () => {
           'id': 1,
           'name': 'Old Fashioned',
           'description': 'A strong bourbon drink',
-          'category': 'strong',
+          'category_id': 1,
           'price': 8,
           'ingredients': 'Bourbon, simple syrup, bitters. Garnish: orange peel',
           'owner_id': 1
@@ -224,7 +224,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
         
-      expect(data.body).toEqual(expectation);
+      expect(data.body).toEqual(expect.arrayContaining(expectation));
     });
   });
 });
