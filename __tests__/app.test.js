@@ -37,15 +37,14 @@ describe('app routes', () => {
         name: 'Manhattan',
         description: 'A strong whiskey drink',
         category_id: 1,
-        category_name: 'strong',
         price: 9,
         ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
+        owner_id: 1
       };
       
       const expectation = {
         ...newCocktail,
         id: 9,
-        owner_id: 1,
       };
   
       const data = await fakeRequest(app)
@@ -63,7 +62,7 @@ describe('app routes', () => {
 
       const manhattan = allCocktails.body.find(cocktail => cocktail.name === 'Manhattan'); 
 
-      expect(manhattan).toEqual(expectation);
+      expect(manhattan).toEqual({ ...expectation, category_name: 'strong' });
     });
 
     // PUT update to single cocktail test
@@ -72,15 +71,14 @@ describe('app routes', () => {
         name: 'Old Fashioned',
         description: 'A strong bourbon drink',
         category_id: 1,
-        category_name: 'strong',
         price: 8,
         ingredients: 'Bourbon, simple syrup, bitters. Garnish: orange peel',
+        owner_id: 1,
       };
 
       const expectation = {
         ...newCocktail,
         id: 1,
-        owner_id: 1,
       };
 
       await fakeRequest(app)
@@ -94,7 +92,7 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(updatedCocktail.body).toEqual(expectation);
+      expect(updatedCocktail.body).toEqual({ ...expectation, category_name: 'strong' });
     });
 
     // GET single cocktail test
@@ -125,7 +123,6 @@ describe('app routes', () => {
         name: 'Manhattan',
         description: 'A strong whiskey drink',
         category_id: 1,
-        category_name: 'strong',
         price: 9,
         ingredients: 'Whiskey, sweet vermouth, bitters. Garnish: orange peel, maraschino cherry',
         owner_id: 1,
