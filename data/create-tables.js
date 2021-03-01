@@ -25,6 +25,7 @@ async function run() {
         name VARCHAR(256) NOT NULL,
         description VARCHAR(256) NOT NULL,
         category_id INTEGER NOT NULL REFERENCES categories(id),
+        category_name VARCHAR(256) NOT NULL REFERENCES categories(id),
         price integer NOT NULL,
         ingredients VARCHAR(256) NOT NULL,
         owner_id INTEGER NOT NULL REFERENCES users(id)

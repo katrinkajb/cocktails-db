@@ -6,7 +6,7 @@ module.exports = [
     'name': 'creamy',
   },
   {
-    'name': 'bubbles',
+    'name': 'bubbly',
   },
   {
     'name': 'refreshing',
